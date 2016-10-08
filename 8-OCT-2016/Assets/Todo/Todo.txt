@@ -1,0 +1,11 @@
+Create weapons
+Create path for movement
+Create enemies
+Let the player fire weapon
+Create UI for health
+Create barriers
+Add lots of cool little details
+Add a method in player controller for checking if the mouse is over UI 
+	(the best way might be to create a seperate class which observes the mouse position and all ui elements)
+	also, supposedly this call will only happen if the mouse is over UI. If so, then we can easily create an IsOverUI property
+	if (EventSystem.current.IsPointerOverGameObject()) { // UI elements getting the hit/hover }
