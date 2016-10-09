@@ -26,8 +26,16 @@ public class NPCHealth : MonoBehaviour {
 
 	void Die()
 	{
-		text.text = "D'oh!";
-		rend.enabled = false;
-		text.gameObject.transform.parent.gameObject.AddComponent<DieAfterTime> ();
+		if (text != null)
+		{
+			text.text = "D'oh!";
+			text.gameObject.transform.parent.gameObject.AddComponent<DieAfterTime> ();
+		}
+
+		if(rend!= null)
+			rend.enabled = false;
+
+		Rigidbody rbody = gameObject.AddComponent<Rigidbody> ();
+		rbody.AddForce (Vector3.back);
 	}
 }

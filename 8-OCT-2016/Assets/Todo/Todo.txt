@@ -10,3 +10,10 @@ Add a method in player controller for checking if the mouse is over UI
 	also, supposedly this call will only happen if the mouse is over UI. If so, then we can easily create an IsOverUI property
 	if (EventSystem.current.IsPointerOverGameObject()) { // UI elements getting the hit/hover }
 Make world space UI always point toward camera?
+
+add - enemy fights back
+add - player health
+add - enemy health
+create popup where user clicks to move or attack
+don't make the user keep clicking. once they have clicked on an enemy the attacks happen automatically
+create explicit training for the player
