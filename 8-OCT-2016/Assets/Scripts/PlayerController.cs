@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Lean.Touch;
 
 public class PlayerController : MonoBehaviour {
 
@@ -62,48 +63,79 @@ public class PlayerController : MonoBehaviour {
 	void Start () 
 	{
 	}
+
+	protected virtual void OnEnable()
+	{
+		LeanTouch.OnFingerDown += HandleTouch;
+	}
+
+	protected virtual void OnDisable()
+	{
+		LeanTouch.OnFingerDown -= HandleTouch;
+	}
 	
 	void Update () 
 	{
-		if (EventSystem.current.IsPointerOverGameObject ())
+
+
+		// old system
+//		if (EventSystem.current.IsPointerOverGameObject ())
+//		{
+//		} else
+//		{
+//
+//			if (Application.platform == RuntimePlatform.WindowsEditor)
+//			{
+//				if (Input.GetButtonDown ("Fire1"))
+//				{
+//					RaycastHit hit;
+//					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+//					if (Physics.Raycast (ray, out hit, 100, layerMask))
+//					{
+//						HandleTouch (hit.point);
+//					}
+//				}
+//			}
+//
+//
+//			for (int i = 0; i < Input.touchCount; i++)
+//			{
+//				Touch touch = Input.GetTouch (i);
+//				if (touch.phase == TouchPhase.Began)
+//				{
+//					if (touch.position.x < (Screen.width / 4) || touch.position.y < (3*Screen.height / 4))
+//					{
+//						
+//						RaycastHit hit;
+//						Ray ray = Camera.main.ScreenPointToRay (touch.position);
+//						if (Physics.Raycast (ray, out hit, 100, layerMask))
+//						{
+//							HandleTouch (hit.point);
+//						}
+//					}
+//				}
+//			}
+//		}
+	}
+
+	void HandleTouch(LeanFinger finger)
+	{
+		// rebuild touch handling with LeanTouch
+		if (LeanTouch.GuiInUse == true)
 		{
+			// we don't need to do anything here. They touched a button
 		} else
 		{
-
-			if (Application.platform == RuntimePlatform.WindowsEditor)
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay (finger.ScreenPosition);
+			if (Physics.Raycast (ray, out hit, 100, layerMask))
 			{
-				if (Input.GetButtonDown ("Fire1"))
-				{
-					RaycastHit hit;
-					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-					if (Physics.Raycast (ray, out hit, 100, layerMask))
-					{
-						HandleTouch (hit.point);
-					}
-				}
-			}
-
-
-			for (int i = 0; i < Input.touchCount; i++)
-			{
-				Touch touch = Input.GetTouch (i);
-				if (touch.phase == TouchPhase.Began)
-				{
-					if (touch.position.x < (Screen.width / 4) || touch.position.y < (3*Screen.height / 4))
-					{
-						RaycastHit hit;
-						Ray ray = Camera.main.ScreenPointToRay (touch.position);
-						if (Physics.Raycast (ray, out hit, 100, layerMask))
-						{
-							HandleTouch (hit.point);
-						}
-					}
-				}
+				UseAbility (hit.point);
 			}
 		}
 	}
 
-	void HandleTouch(Vector3 position)
+	void UseAbility(Vector3 position)
 	{
 		if (MoveModeOn)
 		{
