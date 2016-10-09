@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 				Touch touch = Input.GetTouch (i);
 				if (touch.phase == TouchPhase.Began)
 				{
-					if (touch.position.x > (Screen.width / 4) || touch.position.y < (3*Screen.height / 4))
+					if (touch.position.x < (Screen.width / 4) || touch.position.y < (3*Screen.height / 4))
 					{
 						RaycastHit hit;
 						Ray ray = Camera.main.ScreenPointToRay (touch.position);
