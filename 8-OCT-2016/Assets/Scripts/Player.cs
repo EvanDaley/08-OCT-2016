@@ -3,13 +3,21 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	// Use this for initialization
+	private NavMeshRunner navMeshRunner;
+	private CombatScript combatScript;
+
 	void Start () {
-	
+		navMeshRunner = GetComponent<NavMeshRunner> ();
+		combatScript = GetComponent<CombatScript> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void SetMoveTarget(Vector3 position)
+	{
+		navMeshRunner.SetTarget (position);
+	}
+
+	public void Attack(Vector3 position)
+	{
+		combatScript.Attack (position);
 	}
 }
